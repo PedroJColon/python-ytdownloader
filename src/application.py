@@ -1,7 +1,8 @@
 import customtkinter
-
+from src.downloader import Downloader
 
 # TODO: Allow for right click event to create up pop window
+
 
 class App(customtkinter.CTk):
     def __init__(self):
@@ -14,6 +15,7 @@ class App(customtkinter.CTk):
         self.title("Simple Youtube Downloader")
         self.resizable(True, True)
 
+        self.option_values = ["Download Video", "Download Audio(mp3)", "Download Audio(wav)"]
 
         self.insert_text = customtkinter.CTkLabel(self, text="Insert Youtube Link Down Below")
         self.insert_text.pack(padx=10, pady=10)
@@ -24,8 +26,9 @@ class App(customtkinter.CTk):
 
         # Dropdown menu for downloading Audio or Video
         self.options = customtkinter.StringVar(value="Download Video")
-        self.option_menu = customtkinter.CTkOptionMenu(self, values=["Download Video",
-                                                                     "Download Audio"],
+        self.option_menu = customtkinter.CTkOptionMenu(self, values=[self.option_values[0],
+                                                                     self.option_values[1],
+                                                                     self.option_values[2]],
                                                        command=self.download_options,
                                                        variable=self.options)
 
@@ -46,7 +49,10 @@ class App(customtkinter.CTk):
         self.protocol("WM_DELETE_WINDOW")
 
     def download_options(self, options):
-        pass
-
-    def button_callback(self):
-        print("button clicked")
+        download = Downloader()
+        if options == self.option_values[0]:
+            download.download_video(self.link.get())
+        elif options == self.option_values[1]:
+            download.download_audio(self.link.get(), ".mp3")
+        elif options == self.option_values[2]:
+            download.download_audio(self.link.get(), ".wav")
