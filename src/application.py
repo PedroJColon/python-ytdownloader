@@ -1,4 +1,6 @@
 import customtkinter
+import tkinter
+import win32clipboard
 from src.downloader import Downloader
 from src.downloader import Status
 from PIL import Image
@@ -27,9 +29,15 @@ class App(customtkinter.CTk):
         self.insert_text = customtkinter.CTkLabel(self, text="Insert Youtube Link Down Below")
         self.insert_text.pack(padx=10, pady=10)
 
+        self.context_menu = tkinter.Menu(self, tearoff=False)
+        self.context_menu.configure(background='black')
+        self.context_menu.add_command(label="Paste", foreground="white", command=self.paste_url)
+
+        self.bind("<Button-3>", self.popup_menu)
+
         # Gets url text from user, This will be used in order to get the youtube videos specified
-        url_text = customtkinter.StringVar()
-        self.link = customtkinter.CTkEntry(self, width=350, height=40, textvariable=url_text)
+        self.url_text = customtkinter.StringVar()
+        self.link = customtkinter.CTkEntry(self, width=350, height=40, textvariable=self.url_text)
         self.link.pack(padx=10, pady=10)
 
         # Dropdown menu for downloading Audio or Video
@@ -91,3 +99,12 @@ class App(customtkinter.CTk):
         img = customtkinter.CTkImage(dark_image=Image.open(BytesIO(url_data)),
                                      size=(thumbnail_size_width, thumbnail_size_height))
         self.image_label.configure(image=img)
+
+    def popup_menu(self, e):
+        self.context_menu.tk_popup(e.x_root, e.y_root)
+
+    def paste_url(self):
+        win32clipboard.OpenClipboard()
+        paste_data = win32clipboard.GetClipboardData()
+        win32clipboard.CloseClipboard()
+        self.link.insert(0, paste_data)
