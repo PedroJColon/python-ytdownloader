@@ -9,6 +9,6 @@ Once extracted, click on the .exe file and the gui window will open.
 Once the window is open, simply place the youtube video (or playlist) URL in the text box and select which option on how
 you want to download the video. **NOTE: For downloading playlist, use the playlist button, otherwise the videos will not be downloaded.**
 
-![SimpleYTDownloaderDemo](https://github.com/PedroJColon/python-ytdownloader/assets/64868232/ab85287d-4a6c-4013-b762-3dbee2e928ab)
+![SimpleYTDownloaderDemo_Final](https://github.com/PedroJColon/python-ytdownloader/assets/64868232/94b1859d-80b4-4d4d-8866-66f54e8a1181)
 
 **Important Note: The video will be downloaded in the same directory that the downloader is located at.**
