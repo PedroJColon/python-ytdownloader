@@ -7,8 +7,6 @@ from PIL import Image
 import urllib.request
 from io import BytesIO
 
-# TODO: Allow for right click event to create up pop window
-
 WIDTH: int = 1280
 HEIGHT: int = 720
 
